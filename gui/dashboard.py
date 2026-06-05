@@ -223,7 +223,7 @@ class CuffnCodeApp(ctk.CTk):
 
     def __init__(self):
         super().__init__()
-        self.title("CuffnCode — Blood Pressure Monitor")
+        self.title("PulseTrack Pro — Smart BP Monitor")
         self.geometry("1280x820")
         self.minsize(1100, 700)
         self.configure(fg_color=COLORS["bg_primary"])
@@ -255,7 +255,7 @@ class CuffnCodeApp(ctk.CTk):
         topbar.pack_propagate(False)
 
         # Logo
-        logo = ctk.CTkLabel(topbar, text="❤️  CuffnCode",
+        logo = ctk.CTkLabel(topbar, text="❤️  PulseTrack Pro",
                              font=ctk.CTkFont("Segoe UI", 22, weight="bold"),
                              text_color=COLORS["accent_blue"])
         logo.pack(side='left', padx=24)
@@ -435,7 +435,7 @@ class CuffnCodeApp(ctk.CTk):
         self._status = StatusBadge(bottom)
         self._status.pack(side='left', padx=20)
 
-        version = ctk.CTkLabel(bottom, text="CuffnCode v1.0  ·  Student Embedded Control & AI Fest",
+        version = ctk.CTkLabel(bottom, text="PulseTrack Pro v2.0 ·  Developed by Taufiq",
                                 font=ctk.CTkFont("Segoe UI", 10),
                                 text_color=COLORS["text_muted"])
         version.pack(side='right', padx=20)

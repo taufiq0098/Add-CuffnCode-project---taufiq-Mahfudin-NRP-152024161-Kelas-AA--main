@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CuffnCode — Blood Pressure Measurement Platform</title>
+  <meta name="description" content="CuffnCode: An open-source, over-instrumented blood pressure monitoring platform for teaching and research. Oscillometric method with Python + Arduino." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-icon">💉</span>
+      <span>CuffnCode</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#hardware">Hardware</a></li>
+      <li><a href="#software">Software</a></li>
+      <li><a href="#algorithm">Algorithm</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#team">Team</a></li>
+      <li>
+        <a href="https://github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode"
+           class="btn-nav" target="_blank" rel="noopener">
+          View on GitHub ↗
+        </a>
+      </li>
+    </ul>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- ─── Hero ───────────────────────────────────────────────────────────────── -->
+<header id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Student Embedded Control & AI Fest 2026</div>
+    <h1 class="hero-title">
+      <span class="gradient-text">CuffnCode</span>
+    </h1>
+    <p class="hero-subtitle">
+      A retrofitted blood pressure measurement system<br />
+      for <strong>teaching</strong> and <strong>research</strong>
+    </p>
+    <p class="hero-desc">
+      An open-source, over-instrumented platform for developing and testing
+      signal processing and control algorithms — combining Arduino embedded hardware
+      with a Python signal processing stack.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode"
+         class="btn-primary" target="_blank" rel="noopener">
+        ⬇ Get the Code
+      </a>
+      <a href="#overview" class="btn-secondary">Learn More ↓</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">Python 3.10+</span>
+      <span class="badge">Arduino</span>
+      <span class="badge">Oscillometric</span>
+      <span class="badge">MIT License</span>
+      <span class="badge">Open Source</span>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="bp-display">
+      <div class="bp-ring">
+        <div class="bp-inner">
+          <span class="bp-sys" id="hero-sbp">120</span>
+          <span class="bp-sep">/</span>
+          <span class="bp-dia" id="hero-dbp">80</span>
+          <span class="bp-unit">mmHg</span>
+          <span class="bp-label">Normal ✓</span>
+        </div>
+      </div>
+      <div class="bp-metrics">
+        <div class="bp-metric"><span class="m-val" id="hero-map">93</span><span class="m-lbl">MAP</span></div>
+        <div class="bp-metric"><span class="m-val" id="hero-hr">72</span><span class="m-lbl">BPM</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── Overview ──────────────────────────────────────────────────────────── -->
+<section id="overview" class="section">
+  <div class="container">
+    <div class="section-label">Overview</div>
+    <h2 class="section-title">What is CuffnCode?</h2>
+    <p class="section-intro">
+      CuffnCode retrofits a standard blood pressure cuff with custom electronics
+      and open-source software, transforming a commodity medical device into a
+      rich experimental platform.
+    </p>
+
+    <div class="cards-grid">
+      <div class="feature-card">
+        <div class="card-icon">📚</div>
+        <h3>Teaching Tool</h3>
+        <p>Visualize the oscillometric method in real-time. See exactly how systolic and diastolic pressure are derived from the oscillation envelope — ideal for biomedical engineering courses.</p>
+      </div>
+      <div class="feature-card">
+        <div class="card-icon">🔬</div>
+        <h3>Research Platform</h3>
+        <p>Swap in custom signal processing algorithms, test alternative BP detection methods, and log every sample for offline analysis. Full access to raw ADC data.</p>
+      </div>
+      <div class="feature-card">
+        <div class="card-icon">🛠️</div>
+        <h3>Embedded Control</h3>
+        <p>Control a DC micro-pump and two solenoid valves with precise timing. Implement PID deflation control, test valve sequencing strategies, and measure latency.</p>
+      </div>
+      <div class="feature-card">
+        <div class="card-icon">🐍</div>
+        <h3>Python Ecosystem</h3>
+        <p>Built on NumPy, SciPy, and Matplotlib. Extend with scikit-learn for ML classifiers, or biosppy for advanced biosignal processing.</p>
+      </div>
+    </div>
+
+    <!-- Architecture diagram -->
+    <div class="arch-block">
+      <h3 class="arch-title">System Architecture</h3>
+      <div class="arch-diagram">
+        <div class="arch-layer python-layer">
+          <div class="arch-layer-label">Python Application</div>
+          <div class="arch-modules">
+            <div class="arch-mod blue">Simulator</div>
+            <div class="arch-mod teal">Signal Processing</div>
+            <div class="arch-mod green">BP Algorithm</div>
+            <div class="arch-mod purple">GUI Dashboard</div>
+            <div class="arch-mod orange">Data Logger</div>
+            <div class="arch-mod gray">Serial Acquisition</div>
+          </div>
+        </div>
+        <div class="arch-arrow">⇅ USB Serial 115200 baud</div>
+        <div class="arch-layer hw-layer">
+          <div class="arch-layer-label">Arduino Uno</div>
+          <div class="arch-modules">
+            <div class="arch-mod blue">Pump Control (PWM)</div>
+            <div class="arch-mod teal">Valve 1 (slow deflate)</div>
+            <div class="arch-mod green">Valve 2 (fast vent)</div>
+            <div class="arch-mod orange">MPX5050 Sensor (A0)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Hardware ──────────────────────────────────────────────────────────── -->
+<section id="hardware" class="section section-alt">
+  <div class="container">
+    <div class="section-label">Hardware</div>
+    <h2 class="section-title">Embedded System Design</h2>
+    <p class="section-intro">
+      The hardware core consists of a microcontroller, a DC micro-pump,
+      two solenoid valves, and a MEMS pressure sensor — all interfaced
+      via a custom switching circuit.
+    </p>
+
+    <div class="two-col">
+      <div class="col-content">
+        <h3>Switching Circuit</h3>
+        <p>
+          Each actuator (pump + 2 valves) is driven by an N-channel MOSFET
+          (IRLZ44N) acting as a low-side switch. A flyback diode (1N4007)
+          protects against inductive kickback from the solenoid coils.
+        </p>
+        <div class="circuit-table">
+          <table>
+            <thead>
+              <tr><th>Arduino Pin</th><th>Function</th><th>Component</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pin 9 (PWM)</td><td>Pump Speed</td><td>DC Micro-Pump via MOSFET</td></tr>
+              <tr><td>Pin 7</td><td>Slow Deflate</td><td>Solenoid Valve 1 (NC)</td></tr>
+              <tr><td>Pin 8</td><td>Fast Vent</td><td>Solenoid Valve 2 (NC)</td></tr>
+              <tr><td>A0 (ADC)</td><td>Pressure Read</td><td>MPX5050 (0–50 kPa)</td></tr>
+              <tr><td>Pin 13</td><td>Status LED</td><td>LED + 220Ω resistor</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top:2rem;">Pressure Sensor</h3>
+        <p>
+          The <strong>Freescale MPX5050</strong> is a piezoresistive MEMS sensor
+          rated 0–50 kPa (0–375 mmHg). Its analog output is read by the Arduino's
+          10-bit ADC and converted to mmHg in Python using a linear calibration:
+        </p>
+        <div class="code-block">
+          <pre><code>voltage = (adc / 1023) × 5.0 V
+kPa     = (voltage - 0.2) / (4.7 - 0.2) × 50
+mmHg    = kPa × 7.5006</code></pre>
+        </div>
+      </div>
+      <div class="col-visual">
+        <div class="bom-card">
+          <h4>Bill of Materials</h4>
+          <ul class="bom-list">
+            <li><span class="bom-dot blue"></span>Arduino Uno / Nano</li>
+            <li><span class="bom-dot teal"></span>DC Micro Air Pump (3–6V)</li>
+            <li><span class="bom-dot green"></span>Solenoid Valve NC 3V × 2</li>
+            <li><span class="bom-dot orange"></span>MPX5050 Pressure Sensor</li>
+            <li><span class="bom-dot purple"></span>IRLZ44N MOSFET × 3</li>
+            <li><span class="bom-dot red"></span>1N4007 Diode × 3</li>
+            <li><span class="bom-dot gray"></span>BP Cuff + Tubing</li>
+            <li><span class="bom-dot yellow"></span>5V 2A Power Supply</li>
+          </ul>
+        </div>
+        <div class="state-machine-card">
+          <h4>Firmware State Machine</h4>
+          <div class="states">
+            <div class="state">IDLE</div>
+            <div class="state-arrow">↓ INFLATE cmd</div>
+            <div class="state active">INFLATING</div>
+            <div class="state-arrow">↓ target ADC reached</div>
+            <div class="state">DEFLATING</div>
+            <div class="state-arrow">↓ pressure = 0</div>
+            <div class="state">IDLE</div>
+            <div class="state-arrow err">⚡ over-pressure</div>
+            <div class="state error">ERROR → VENT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Software ─────────────────────────────────────────────────────────── -->
+<section id="software" class="section">
+  <div class="container">
+    <div class="section-label">Software</div>
+    <h2 class="section-title">Python Stack</h2>
+    <p class="section-intro">
+      The Python application handles signal acquisition, processing, BP computation,
+      visualization, and data logging — all in a single unified dashboard.
+    </p>
+
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-header blue">
+          <code>src/simulator.py</code>
+        </div>
+        <div class="module-body">
+          <p>Generates realistic synthetic oscillometric waveforms for demo without hardware. Uses a Gaussian amplitude model centered at MAP.</p>
+          <ul>
+            <li>Configurable SBP, DBP, HR, noise</li>
+            <li>3-phase: inflate → plateau → deflate</li>
+            <li>Real-time generator (streaming)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header teal">
+          <code>src/signal_processing.py</code>
+        </div>
+        <div class="module-body">
+          <p>Butterworth filters and envelope extraction to separate oscillations from DC pressure trend.</p>
+          <ul>
+            <li>Bandpass: 0.5–8 Hz (cardiac band)</li>
+            <li>Lowpass: 0.3 Hz (pressure trend)</li>
+            <li>Savitzky-Golay envelope smoothing</li>
+            <li>Heart rate from inter-peak intervals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header green">
+          <code>src/bp_algorithm.py</code>
+        </div>
+        <div class="module-body">
+          <p>Oscillometric BP algorithm with literature-validated amplitude ratio thresholds.</p>
+          <ul>
+            <li>MAP at peak oscillation amplitude</li>
+            <li>SBP ratio: 0.45 × peak amplitude</li>
+            <li>DBP ratio: 0.70 × peak amplitude</li>
+            <li>AHA 2017 classification</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header orange">
+          <code>src/acquisition.py</code>
+        </div>
+        <div class="module-body">
+          <p>Threaded serial reader for real-time hardware data streaming.</p>
+          <ul>
+            <li>115200 baud, 100 Hz sampling</li>
+            <li>ADC → mmHg calibration</li>
+            <li>Send INFLATE/DEFLATE/STOP commands</li>
+            <li>Thread-safe queue architecture</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header purple">
+          <code>gui/dashboard.py</code>
+        </div>
+        <div class="module-body">
+          <p>Modern dark-themed dashboard with live waveform and metric cards.</p>
+          <ul>
+            <li>customtkinter + matplotlib embedded</li>
+            <li>Real-time scrolling waveform (100 Hz)</li>
+            <li>SBP / DBP / MAP / HR metric cards</li>
+            <li>Simulation mode with sliders</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div class="module-header gray">
+          <code>src/data_logger.py</code>
+        </div>
+        <div class="module-body">
+          <p>Persists measurement sessions for offline analysis.</p>
+          <ul>
+            <li>Waveform → CSV (time, pressure, phase)</li>
+            <li>Results → JSON (SBP, DBP, MAP, HR)</li>
+            <li>Session-based filenames (timestamp)</li>
+            <li>Load and replay saved recordings</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick start code -->
+    <div class="quickstart-block">
+      <h3>Quick Start</h3>
+      <div class="code-tabs">
+        <button class="tab-btn active" onclick="showTab('install')">Install</button>
+        <button class="tab-btn" onclick="showTab('run')">Run</button>
+        <button class="tab-btn" onclick="showTab('test')">Test</button>
+        <button class="tab-btn" onclick="showTab('api')">API</button>
+      </div>
+      <div class="tab-content active" id="tab-install">
+        <pre><code class="language-bash">git clone https://github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode.git
+cd CuffnCode
+pip install -r requirements.txt</code></pre>
+      </div>
+      <div class="tab-content" id="tab-run">
+        <pre><code class="language-bash"># Launch the GUI dashboard
+python main.py
+
+# Click "▶ Start Measurement" to begin simulation</code></pre>
+      </div>
+      <div class="tab-content" id="tab-test">
+        <pre><code class="language-bash">pip install pytest
+pytest tests/ -v
+
+# Expected output:
+# tests/test_signal_processing.py ........ PASSED
+# tests/test_bp_algorithm.py ............ PASSED</code></pre>
+      </div>
+      <div class="tab-content" id="tab-api">
+        <pre><code class="language-python">from src.simulator import SimConfig, get_sample_waveform
+from src.bp_algorithm import compute_bp
+
+# Generate synthetic waveform
+config = SimConfig(target_sbp=130, target_dbp=85, heart_rate=70)
+t, p, phases = get_sample_waveform(config)
+
+# Compute blood pressure
+result = compute_bp(t, p, fs=100.0, phase_arr=phases)
+print(result)
+# → SBP: 128 mmHg | DBP: 83 mmHg | MAP: 98 mmHg | HR: 70 BPM</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Algorithm ─────────────────────────────────────────────────────────── -->
+<section id="algorithm" class="section section-alt">
+  <div class="container">
+    <div class="section-label">Algorithm</div>
+    <h2 class="section-title">Oscillometric Method</h2>
+    <p class="section-intro">
+      CuffnCode implements the oscillometric method — the same principle used in
+      most modern automatic blood pressure monitors.
+    </p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Cuff Inflation</h4>
+          <p>Pump inflates the cuff above systolic pressure. No blood flows → no oscillations detected.</p>
+        </div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Controlled Deflation</h4>
+          <p>Valve 1 pulses open in steps of 50 ms, releasing pressure at ~2–3 mmHg/sec.</p>
+        </div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h4>Signal Filtering</h4>
+          <p>Bandpass (0.5–8 Hz) isolates cardiac oscillations. Lowpass (0.3 Hz) extracts the DC pressure trend.</p>
+        </div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Envelope & MAP</h4>
+          <p>Oscillation envelope extracted via Savitzky-Golay smoothing. MAP = cuff pressure at peak envelope.</p>
+        </div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h4>SBP & DBP Detection</h4>
+          <p>SBP at 45% of peak amplitude (before MAP). DBP at 70% of peak amplitude (after MAP).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="algo-chart">
+      <h3>Oscillation Amplitude vs. Cuff Pressure</h3>
+      <div class="chart-container">
+        <canvas id="algoChart" width="700" height="250"></canvas>
+      </div>
+      <p class="chart-caption">
+        The amplitude reaches its peak at <strong>MAP</strong>. Ratio thresholds
+        (0.45 and 0.70 × peak) determine SBP and DBP.
+        These ratios are empirically derived from clinical validation studies.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Results ───────────────────────────────────────────────────────────── -->
+<section id="results" class="section">
+  <div class="container">
+    <div class="section-label">Results</div>
+    <h2 class="section-title">Performance & Validation</h2>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-value blue">±5</div>
+        <div class="result-unit">mmHg</div>
+        <div class="result-label">Mean SBP Error (simulated)</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value teal">100</div>
+        <div class="result-unit">Hz</div>
+        <div class="result-label">Sampling Rate</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value green">~45</div>
+        <div class="result-unit">sec</div>
+        <div class="result-label">Full Measurement Cycle</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value orange">0.5–8</div>
+        <div class="result-unit">Hz</div>
+        <div class="result-label">Cardiac Band (Bandpass)</div>
+      </div>
+    </div>
+
+    <div class="classification-table">
+      <h3>AHA Blood Pressure Classification</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Systolic (mmHg)</th>
+            <th>Diastolic (mmHg)</th>
+            <th>Color</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Normal</strong></td>
+            <td>&lt; 120</td>
+            <td>&lt; 80</td>
+            <td><span class="cls-badge normal">Normal</span></td>
+          </tr>
+          <tr>
+            <td><strong>Elevated</strong></td>
+            <td>120–129</td>
+            <td>&lt; 80</td>
+            <td><span class="cls-badge elevated">Elevated</span></td>
+          </tr>
+          <tr>
+            <td><strong>HTN Stage 1</strong></td>
+            <td>130–139</td>
+            <td>80–89</td>
+            <td><span class="cls-badge htn1">Stage 1</span></td>
+          </tr>
+          <tr>
+            <td><strong>HTN Stage 2</strong></td>
+            <td>≥ 140</td>
+            <td>≥ 90</td>
+            <td><span class="cls-badge htn2">Stage 2</span></td>
+          </tr>
+          <tr>
+            <td><strong>HTN Crisis</strong></td>
+            <td>&gt; 180</td>
+            <td>&gt; 120</td>
+            <td><span class="cls-badge crisis">Crisis</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Team ──────────────────────────────────────────────────────────────── -->
+<section id="team" class="section section-alt">
+  <div class="container">
+    <div class="section-label">Team</div>
+    <h2 class="section-title">CuffnCode Team</h2>
+    <p class="section-intro">
+      Student Embedded Control and AI Fest — building open-source embedded
+      and AI solutions for education and research.
+    </p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #2188FF, #00B4D8)">
+          <span>🎯</span>
+        </div>
+        <h4>Algorithm & Signal Processing</h4>
+        <p>Oscillometric BP detection, filter design, validation</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #2ECC71, #00B4D8)">
+          <span>⚙️</span>
+        </div>
+        <h4>Hardware & Firmware</h4>
+        <p>Circuit design, Arduino firmware, valve control system</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #F39C12, #E74C3C)">
+          <span>💻</span>
+        </div>
+        <h4>Software & GUI</h4>
+        <p>Python application, dashboard UI, data visualization</p>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background: linear-gradient(135deg, #9B59B6, #2188FF)">
+          <span>📖</span>
+        </div>
+        <h4>Documentation</h4>
+        <p>GitHub Pages, technical writing, testing and validation</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <span class="nav-logo"><span class="logo-icon">💉</span> CuffnCode</span>
+      <p>Student Embedded Control and AI Fest 2026</p>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/Student-Embedded-Control-and-AI-Fest/CuffnCode" target="_blank" rel="noopener">GitHub →</a>
+      <a href="#overview">Docs</a>
+      <a href="#algorithm">Algorithm</a>
+    </div>
+    <div class="footer-right">
+      <p>Released under <strong>MIT License</strong></p>
+      <p style="color:#555; font-size:0.8rem; margin-top:0.5rem;">
+        Built with Python · Arduino · Open Source ♥
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script src="docs.js"></script>
+</body>
+</html>

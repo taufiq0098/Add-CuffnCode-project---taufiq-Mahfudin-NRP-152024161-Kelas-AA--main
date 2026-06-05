@@ -251,7 +251,7 @@ Raw Pressure Signal
 ## 👥 Team
 
 **Student Embedded Control and AI Fest**
-- Project Lead & Algorithm: [Team Member]
+- Project Lead & Algorithm: [Taufiq mahfudin]
 - Hardware & Firmware: [Team Member]
 - GUI & Data Analysis: [Team Member]
 - Documentation: [Team Member]

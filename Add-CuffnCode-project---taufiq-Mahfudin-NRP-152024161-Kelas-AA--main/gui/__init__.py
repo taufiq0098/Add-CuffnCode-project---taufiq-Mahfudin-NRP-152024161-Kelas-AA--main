@@ -1,1 +1,0 @@
-"""CuffnCode GUI package."""

@@ -1,7 +1,3 @@
-"""
-CuffnCode — Entry Point
-Launches the blood pressure monitor dashboard.
-"""
 
 import sys
 import os

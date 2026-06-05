@@ -1,7 +1,7 @@
 /*
- * CuffnCode — Arduino Firmware
- * ============================
- * Blood pressure cuff control and pressure acquisition.
+ * PulseTrack Pro — Arduino Firmware
+ * =================================
+ * Smart Blood Pressure Monitoring System
  *
  * Hardware:
  *   - DC Micro-pump (inflate) → pin 9 (PWM via MOSFET)
@@ -19,7 +19,7 @@
  *     STOP     — stop all actuators
  *     STATUS   — query current state
  *
- * Author: CuffnCode Team — Student Embedded Control & AI Fest
+ *Author: Taufiq Mahfudin — NRP 152024161
  */
 
 // ── Pin Definitions ──────────────────────────────────────────────────────────
@@ -56,9 +56,10 @@ void setup() {
   pinMode(PIN_LED,    OUTPUT);
 
   stopAll();
-  Serial.println("# CuffnCode v1.0 Ready");
-  Serial.println("# Commands: INFLATE, DEFLATE, VENT, STOP, STATUS");
-}
+  Serial.println("PulseTrack Pro v2.0 Ready");
+  Serial.println("# Developed by Taufiq Mahfudin");
+  Serial.println("# NRP 152024161 - Kelas AA");
+  Serial.println("# Commands: START, DEFLATE, VENT, STOP, STATUS");
 
 // ── Main Loop ─────────────────────────────────────────────────────────────────
 void loop() {

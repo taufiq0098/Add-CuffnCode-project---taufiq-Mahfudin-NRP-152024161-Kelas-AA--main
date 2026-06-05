@@ -1,6 +1,12 @@
-# 💉 CuffnCode
+# ❤️ PulseTrack Pro
 
-> A retrofitted blood pressure measurement system for teaching and research.
+> A smart blood pressure monitoring simulator developed for educational and research purposes.
+
+## Application Preview
+
+![Dashboard](docs/dashboard.png)
+
+---
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -247,15 +253,22 @@ Raw Pressure Signal
 - [ ] Multi-patient database with trend visualization
 
 ---
+## 🎥 Demonstration Video
 
-## 👥 Team
 
-**Student Embedded Control and AI Fest**
-- Project Lead & Algorithm: [Team Member]
-- Hardware & Firmware: [Team Member]
-- GUI & Data Analysis: [Team Member]
-- Documentation: [Team Member]
+[Watch Demo](docs/demo.mp4)/(https://drive.google.com/file/d/1GEerWPDs_wf072jFquMC1m-_6OliTUL6/view?usp=sharing)
 
+
+---
+## Developer
+
+Taufiq Mahfudin NRP 152024161 Kelas AA
+
+- Export PDF Report
+- Multi-user Monitoring
+- Real-time Database Storage
+- Mobile Dashboard Integration
+- Cloud Data Synchronization
 ---
 
 ## 📜 License
